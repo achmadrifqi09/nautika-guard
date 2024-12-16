@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { loginSuccess } from '../redux/authSlice';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { loginSuccess } from "../redux/authSlice";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate(); // Inisialisasi useNavigate
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     // Fungsi untuk login
     const handleLogin = async (event) => {
@@ -15,10 +16,10 @@ const Login = () => {
 
         try {
             // Kirim data login ke backend
-            const response = await fetch('http://202.10.42.158:3001/login', {
-                method: 'POST',
+            const response = await fetch("http://localhost:3001/login", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email,
@@ -30,40 +31,47 @@ const Login = () => {
                 const data = await response.json();
 
                 // Simpan status login ke localStorage
-                localStorage.setItem('isLoggedIn', 'true');
-
-                if (data.user.role === 'admin') {
-                    localStorage.setItem('isAdmin', 'true');
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("userId", data?.user?.id);
+                if (data.user.role === "admin") {
+                    localStorage.setItem("isAdmin", "true");
                     dispatch(
                         loginSuccess({
                             email: data.user.email,
                             isAdmin: true,
                         })
                     );
-                    navigate('/SidebarAdmin'); // Navigasi ke halaman admin
+                    navigate("/SidebarAdmin"); // Navigasi ke halaman admin
                 } else {
-                    localStorage.setItem('isAdmin', 'false');
+                    localStorage.setItem("isAdmin", "false");
                     dispatch(
                         loginSuccess({
                             email: data.user.email,
                             isAdmin: false,
                         })
                     );
-                    navigate('/Sidebar'); // Navigasi ke halaman user biasa
+                    navigate("/Sidebar"); // Navigasi ke halaman user biasa
                 }
             } else {
                 const errorData = await response.json();
-                alert(errorData.message || 'Login gagal.');
+                Swal.fire({
+                    icon: "error",
+                    title: "Berhasil",
+                    text: errorData.message || "Login gagal.",
+                });
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan pada server.');
+            Swal.fire({
+                icon: "error",
+                title: "Berhasil",
+                text: "Terjadi kesalahan pada server.",
+            });
         }
     };
 
     // Fungsi untuk menangani klik tombol "Daftar"
     const handleSignUpClick = () => {
-        navigate('/Signup'); // Arahkan ke halaman SignUp
+        navigate("/Signup"); // Arahkan ke halaman SignUp
     };
 
     return (
@@ -71,14 +79,22 @@ const Login = () => {
             {/* Form Section */}
             <div className="flex flex-col justify-center items-start w-full md:w-1/2 p-8 bg-white shadow-lg">
                 <div className="mb-1">
-                    <img src="/images/nautika.png" alt="logo" className="w-[152px] h-[115px] object-cover rounded-md" />
+                    <img
+                        src="/images/nautika.png"
+                        alt="logo"
+                        className="w-[152px] h-[115px] object-cover rounded-md"
+                    />
                 </div>
                 <h2 className="text-2xl font-bold mb-2">Masuk</h2>
-                <p className="text-gray-600 mb-6">Tambahkan kredensial Anda untuk masuk</p>
+                <p className="text-gray-600 mb-6">
+                    Tambahkan kredensial Anda untuk masuk
+                </p>
 
                 <form className="w-full" onSubmit={handleLogin}>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Alamat Email*</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Alamat Email*
+                        </label>
                         <input
                             type="email"
                             value={email}
@@ -89,7 +105,9 @@ const Login = () => {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Kata Sandi*</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Kata Sandi*
+                        </label>
                         <input
                             type="password"
                             value={password}

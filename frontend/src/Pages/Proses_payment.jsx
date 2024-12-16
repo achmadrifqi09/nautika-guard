@@ -19,7 +19,7 @@ function Proses_payment({ donationAmount }) {
 
         try {
             // Kirim data ke server untuk mendapatkan token transaksi
-            const response = await axios.post('http://202.10.42.158:3001/proses_payment', {
+            const response = await axios.post('http://localhost:3001/proses_payment', {
                 name,
                 email,
                 phone,

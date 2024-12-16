@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Navbar_u() {
+    const navigate = useNavigate()
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const handleLoginClick = () => {
-        setShowLoginPage(true); // Show the login page when the button is clicked
+        navigate('/login')
     };
 
     useEffect(() => {

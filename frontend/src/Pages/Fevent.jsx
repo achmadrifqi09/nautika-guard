@@ -45,7 +45,7 @@ const Fevent = () => {
 
         try {
             // Kirim data ke backend
-            const response = await axios.post('http://202.10.42.158:3001/volunteer', formData);
+            const response = await axios.post('http://localhost:3001/volunteer', formData);
 
             console.log('Data berhasil disimpan:', response.data);
             setRedirect(true); // Redirect ke halaman sukses

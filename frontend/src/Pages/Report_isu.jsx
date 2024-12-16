@@ -26,7 +26,7 @@ function Report_isu() {
     };
 
     const fetchIssue = async () => {
-        const response = await axios.get('http://202.10.42.158:3001/issue');
+        const response = await axios.get('http://localhost:3001/issue');
         if (response.status) {
             setIssue(response?.data?.result);
         } else {
@@ -68,7 +68,7 @@ function Report_isu() {
 
         try {
             // Mengirim data ke backend
-            const response = await axios.post('http://202.10.42.158:3001/report_issue', data, {
+            const response = await axios.post('http://localhost:3001/report_issue', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

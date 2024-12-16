@@ -10,6 +10,7 @@ import UserPage from './component/Sidebar';
 import Proses_payment from './Pages/Proses_payment'; // Pastikan jalur impor benar
 import Datav_Admin from './Admin/Datav_Admin';
 import axios from "axios";
+import Home_Page from './Pages/Home_Page';
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -18,13 +19,17 @@ function AppContent() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
 
-  console.log("isAuthenticated:", isAuthenticated);
-  console.log("isAdmin:", isAdmin);
+
 
   return (
     <Router future={{ v7_relativeSplatPath: true }}>
       <Routes>
-        <Route path="/" element={<Navigate to={isAuthenticated ? (isAdmin ? "/SidebarAdmin" : "/Sidebar") : "/login"} />} />
+        {/* <Route path="/" element={<Navigate to={isAuthenticated ? (isAdmin ? "/SidebarAdmin" : "/Sidebar") : "/login"} />} /> */}
+        <Route path="/" element={
+          isAuthenticated ? (
+            <Navigate to={isAdmin ? "/SidebarAdmin" : "/Sidebar"}/>
+          ) : <Home_Page/>
+        } />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/SidebarAdmin" element={isAuthenticated && isAdmin ? <AdminPage /> : <Navigate to="/login" />} />

@@ -18,6 +18,7 @@ const Sidebar = () => {
         if (localStorage && page === 'Keluar') {
             localStorage.clear('isAdmin');
             localStorage.clear('isLoggedIn');
+            localStorage.clear('userId');
             window.location.reload();
         }
         setActivePage(page);

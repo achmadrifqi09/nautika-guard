@@ -5,7 +5,7 @@ const Approval_Admin = ({ issueId = null }) => {
     const [issue, setIssue] = useState(null);
 
     const fetchIssue = async () => {
-        const response = await axios.get('http://202.10.42.158:3001/issue');
+        const response = await axios.get('http://localhost:3001/issue');
         if (response.status) {
             setIssue(response?.data?.result);
         } else {
