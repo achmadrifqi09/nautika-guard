@@ -31,9 +31,9 @@ const initDatabase = async () => {
         db = await mysql.createConnection({
             host: process.env.DB_HOST || 'localhost',
             user: process.env.DB_USER || 'root',
-            password: process.env.DB_PASSWORD || 'Nautika2024',
-            // port: 8889,
-            // password: 'root',
+            // password: process.env.DB_PASSWORD || 'Nautika2024',
+            port: 8889,
+            password: 'root',
             database: process.env.DB_NAME || 'nautika',
         });
         console.log('Koneksi database berhasil');
@@ -378,7 +378,7 @@ app.get('/file', (req, res) => {
         return res.status(400).json({ error: 'Parameter "image" diperlukan' });
     }
 
-    const safePath = path.resolve(__dirname, image);
+    const safePath = path.resolve(__dirname, image.includes('/event') ? image : `uploads/${image}`);
     res.sendFile(safePath, (err) => {
         if (err) {
             return res.status(404).json({ error: 'Gambar tidak ditemukan' });
@@ -426,10 +426,10 @@ app.post('/report_issue', upload.single('photo'), async (req, res) => {
         // Simpan data ke database
         const query = `
       INSERT INTO issue 
-      (full_name, phone, title, location, description, expectation, photo) 
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      (full_name, phone, title, location, description, expectation, photo, approval_status) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-        const values = [full_name, phone, title, location, description, expectation, photo];
+        const values = [full_name, phone, title, location, description, expectation, photo, 0];
         await db.execute(query, values);
 
         res.status(201).json({
