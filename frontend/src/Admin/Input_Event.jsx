@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import {
-    CalendarDays,
-    Clock,
-    MapPin,
-    UsersRound,
-    Watch,
-    WatchIcon,
-} from "lucide-react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { CalendarDays, Clock, MapPin, UsersRound, Watch, WatchIcon } from 'lucide-react';
 
 const Input_Event = () => {
-    const [menu, setMenu] = useState("event");
+    const [menu, setMenu] = useState('event');
     const [events, setEvent] = useState([]);
 
     const [formData, setFormData] = useState({
-        title: "",
-        team: "",
-        location: "",
-        date: "",
-        time: "",
-        equipment: "",
-        description: "",
-        activity: "",
-        event_type: "",
-        deadline: "",
+        title: '',
+        team: '',
+        location: '',
+        date: '',
+        time: '',
+        equipment: '',
+        description: '',
+        activity: '',
+        event_type: '',
+        deadline: '',
     });
     const [photo, setPhoto] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
@@ -59,53 +52,49 @@ const Input_Event = () => {
         });
 
         if (photo) {
-            formDataToSubmit.append("photo", photo);
+            formDataToSubmit.append('photo', photo);
         }
 
         try {
-            const response = await axios.post(
-                "http://localhost:3001/event",
-                formDataToSubmit,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            );
+            const response = await axios.post('http://202.10.42.158:3001/event', formDataToSubmit, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             if (response.status == 201) {
                 Swal.fire({
-                    icon: "success",
-                    title: "Berhasil",
+                    icon: 'success',
+                    title: 'Berhasil',
                     text: `Data event ${formData.title} berhasil ditambahkan`,
                 });
 
                 setFormData({
-                    title: "",
-                    team: "",
-                    location: "",
-                    date: "",
-                    time: "",
-                    equipment: "",
-                    description: "",
-                    activity: "",
-                    event_type: "",
-                    deadline: "",
+                    title: '',
+                    team: '',
+                    location: '',
+                    date: '',
+                    time: '',
+                    equipment: '',
+                    description: '',
+                    activity: '',
+                    event_type: '',
+                    deadline: '',
                 });
                 setPhoto(null);
                 setPreviewImage(null);
             }
         } catch (error) {
             Swal.fire({
-                icon: "error",
-                title: "Opps",
-                text: "Gagal menambahkan event",
+                icon: 'error',
+                title: 'Opps',
+                text: 'Gagal menambahkan event',
             });
         }
     };
 
     const Toast = Swal.mixin({
         toast: true,
-        position: "top-end",
+        position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
@@ -117,27 +106,27 @@ const Input_Event = () => {
 
     const handleDeleteEvent = (event) => {
         Swal.fire({
-            title: "Peringatan",
+            title: 'Peringatan',
             text: `Hapus anda yakin akan menghapus event ${event.title} ?`,
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: "Hapus",
+            confirmButtonText: 'Hapus',
             denyButtonText: `Batal`,
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .delete(`http://localhost:3001/event/${event.id}`)
+                    .delete(`http://202.10.42.158:3001/event/${event.id}`)
                     .then(() => {
                         fetchEvent();
                         Toast.fire({
-                            icon: "success",
-                            title: "Berhasil menghapus event",
+                            icon: 'success',
+                            title: 'Berhasil menghapus event',
                         });
                     })
                     .catch(() => {
                         Toast.fire({
-                            icon: "error",
-                            title: "Terjadi kesalahan saat menghapus event",
+                            icon: 'error',
+                            title: 'Terjadi kesalahan saat menghapus event',
                         });
                     });
             }
@@ -145,14 +134,14 @@ const Input_Event = () => {
     };
 
     const fetchEvent = async () => {
-        const response = await axios.get("http://localhost:3001/event");
+        const response = await axios.get('http://202.10.42.158:3001/event');
         if (response.status === 200) {
             setEvent(response?.data);
         }
     };
 
     useEffect(() => {
-        if (menu === "event") {
+        if (menu === 'event') {
             fetchEvent();
         }
     }, [menu]);
@@ -162,31 +151,24 @@ const Input_Event = () => {
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Event</h2>
             <div className="flex space-x-4 border-b pb-3 mb-6">
                 <button
-                    onClick={() => setMenu("event")}
+                    onClick={() => setMenu('event')}
                     className={`py-2 px-4 font-medium ${
-                        menu === "event"
-                            ? "text-blue-500 border-b-2 border-blue-500"
-                            : "text-gray-600"
+                        menu === 'event' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-600'
                     }`}
                 >
                     Daftar Event
                 </button>
                 <button
-                    onClick={() => setMenu("add-event")}
+                    onClick={() => setMenu('add-event')}
                     className={`py-2 px-4 font-medium ${
-                        menu === "add-event"
-                            ? "text-blue-500 border-b-2 border-blue-500"
-                            : "text-gray-600"
+                        menu === 'add-event' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-600'
                     }`}
                 >
                     Tambah Event
                 </button>
             </div>
-            {menu === "add-event" && (
-                <form
-                    onSubmit={handleSubmit}
-                    className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8"
-                >
+            {menu === 'add-event' && (
+                <form onSubmit={handleSubmit} className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
                     <section className="flex gap-8">
                         <div className="w-1/2">
                             <div className="flex items-center justify-center bg-gray-200 h-64 rounded-lg mb-4">
@@ -210,9 +192,7 @@ const Input_Event = () => {
                                     </label>
                                 )}
                             </div>
-                            <label className="block text-gray-700 font-semibold mb-1">
-                                Deskripsi{" "}
-                            </label>
+                            <label className="block text-gray-700 font-semibold mb-1">Deskripsi </label>
                             <textarea
                                 name="description"
                                 value={formData.description}
@@ -223,9 +203,7 @@ const Input_Event = () => {
                                 rows={4}
                                 required
                             ></textarea>
-                            <label className="block text-gray-700 font-semibold mb-1">
-                                Kegiatan
-                            </label>
+                            <label className="block text-gray-700 font-semibold mb-1">Kegiatan</label>
                             <textarea
                                 name="activity"
                                 value={formData.activity}
@@ -239,9 +217,7 @@ const Input_Event = () => {
                         </div>
                         <div className="w-1/2">
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Judul
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Judul</label>
                                 <input
                                     type="text"
                                     name="title"
@@ -253,9 +229,7 @@ const Input_Event = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Nama Tim
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Nama Tim</label>
                                 <input
                                     type="text"
                                     name="team"
@@ -267,9 +241,7 @@ const Input_Event = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Lokasi
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Lokasi</label>
                                 <input
                                     type="text"
                                     name="location"
@@ -281,9 +253,7 @@ const Input_Event = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Tanggal Pelaksanaan
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Tanggal Pelaksanaan</label>
                                 <input
                                     type="date"
                                     name="date"
@@ -295,9 +265,7 @@ const Input_Event = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Batas Pendaftaran
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Batas Pendaftaran</label>
                                 <input
                                     type="date"
                                     name="deadline"
@@ -309,22 +277,19 @@ const Input_Event = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Jenis Event
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Jenis Event</label>
                                 <select
                                     className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
                                     name="event_type"
                                     onChange={handleInputChange}
                                 >
+                                    <option value="">Pilih ..</option>
                                     <option value="1">Pembersihan</option>
                                     <option value="2">Edukasi</option>
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Waktu Diselenggarakan
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Waktu Diselenggarakan</label>
                                 <input
                                     type="time"
                                     name="time"
@@ -336,9 +301,7 @@ const Input_Event = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">
-                                    Perlengkapan
-                                </label>
+                                <label className="block text-gray-700 font-semibold mb-1">Perlengkapan</label>
                                 <input
                                     type="text"
                                     name="equipment"
@@ -369,7 +332,7 @@ const Input_Event = () => {
                 </form>
             )}
 
-            {menu === "event" && (
+            {menu === 'event' && (
                 <div className="flex flex-col gap-6">
                     {events?.map((event, i) => {
                         return (
@@ -377,24 +340,20 @@ const Input_Event = () => {
                                 className="flex gap-4 bg-white rounded-md p-4 shadow-md flex-col lg:flex-row items-center lg:items-start"
                                 key={i}
                             >
-                                <div className="relative w-full min-w-[18em] lg:max-w-[32em] relative">
+                                <div className="w-full min-w-[18em] lg:max-w-[32em] relative">
                                     <div className="absolute bg-[#00609B] z-10 top-2 text-white font-medium px-2.5 left-2 rounded-full text-sm py-1">
-                                        {event.event_type === 1
-                                            ? "Pembersihan"
-                                            : "Edukasi"}
+                                        {event.event_type === 1 ? 'Pembersihan' : 'Edukasi'}
                                     </div>
-                                    <div className="    aspect-[4/3] relative w-full  min-w-[18em] lg:max-w-[32em] relative">
+                                    <div className="    aspect-[4/3] w-full  min-w-[18em] lg:max-w-[32em] relative">
                                         <img
-                                            src={`http://localhost:3001/file?image=${event.photo}`}
+                                            src={`http://202.10.42.158:3001/file?image=${event.photo}`}
                                             className="w-full h-full object-cover absolute top-0 left-0"
                                             alt="Event Thumbnail"
                                         />
                                     </div>
                                 </div>
-                                <div>
-                                    <h5 className="text-purple-800 text-xl font-medium mb-2">
-                                        {event.title}
-                                    </h5>
+                                <div className="flex flex-col w-full justify-start">
+                                    <h5 className="text-purple-800 text-xl font-medium mb-2">{event.title}</h5>
                                     <div className="grid grid-cols-2 gap-2 w-max">
                                         <div className="flex gap-2 items-center">
                                             <UsersRound className="w-5 h-5 " />
@@ -415,33 +374,19 @@ const Input_Event = () => {
                                     </div>
 
                                     <div>
-                                        <h2 className="text-lg font-medium mb-1 mt-3">
-                                            Peralatan
-                                        </h2>
-                                        <p className="text-gray-700 mb-2">
-                                            {event.equipment}
-                                        </p>
+                                        <h2 className="text-lg font-medium mb-1 mt-3">Peralatan</h2>
+                                        <p className="text-gray-700 mb-2">{event.equipment}</p>
                                     </div>
                                     <div>
-                                        <h2 className="text-lg font-medium mb-1 mt-3">
-                                            Kegiatan
-                                        </h2>
-                                        <p className="text-gray-700 mb-2">
-                                            {event.activity}
-                                        </p>
+                                        <h2 className="text-lg font-medium mb-1 mt-3">Kegiatan</h2>
+                                        <p className="text-gray-700 mb-2">{event.activity}</p>
                                     </div>
 
-                                    <h2 className="text-lg font-medium mb-1">
-                                        Deskripsi
-                                    </h2>
-                                    <p className="text-gray-700">
-                                        {event.description}
-                                    </p>
+                                    <h2 className="text-lg font-medium mb-1">Deskripsi</h2>
+                                    <p className="text-gray-700">{event.description}</p>
                                     <div>
                                         <button
-                                            onClick={() =>
-                                                handleDeleteEvent(event)
-                                            }
+                                            onClick={() => handleDeleteEvent(event)}
                                             className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md mt-4"
                                         >
                                             Hapus
@@ -451,9 +396,7 @@ const Input_Event = () => {
                             </div>
                         );
                     })}
-                    {events?.length === 0 && (
-                        <p>Tidak ada event yang tersedia</p>
-                    )}
+                    {events?.length === 0 && <p>Tidak ada event yang tersedia</p>}
                 </div>
             )}
         </div>

@@ -14,7 +14,7 @@ const SignUp = () => {
 
         try {
             // Kirim data ke endpoint signup menggunakan Axios
-            const response = await axios.post('http://localhost:3001/signup', {
+            const response = await axios.post('http://202.10.42.158:3001/signup', {
                 fullName,
                 email,
                 password,

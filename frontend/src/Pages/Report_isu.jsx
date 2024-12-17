@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Status_Laporan from './Status_Laporan';
+import Swal from 'sweetalert2';
 
 function Report_isu() {
     const [issue, setIssue] = useState(null);
@@ -26,7 +27,7 @@ function Report_isu() {
     };
 
     const fetchIssue = async () => {
-        const response = await axios.get('http://localhost:3001/issue');
+        const response = await axios.get('http://202.10.42.158:3001/issue');
         if (response.status) {
             setIssue(response?.data?.result);
         } else {
@@ -54,7 +55,21 @@ function Report_isu() {
         e.preventDefault();
 
         if (!file) {
-            return alert('Silakan pilih file foto.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Opps',
+                text: 'Silakan pilih foto',
+            });
+            return;
+        }
+
+        if (formData.phone.length > 12) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Opps',
+                text: 'Nomor HP maksimal 12 digit',
+            });
+            return;
         }
 
         const data = new FormData();
@@ -68,7 +83,7 @@ function Report_isu() {
 
         try {
             // Mengirim data ke backend
-            const response = await axios.post('http://localhost:3001/report_issue', data, {
+            const response = await axios.post('http://202.10.42.158:3001/report_issue', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -225,7 +240,7 @@ function Report_isu() {
                                 <div className="md:w-2/3">
                                     <h1 className="text-2xl font-semibold mb-4">{data.title}</h1>
                                     <img
-                                        src="images/event5.jpg"
+                                        src={`http://202.10.42.158:3001/file?image=${data.photo}`}
                                         alt="Sungai Brantas"
                                         className="w-full h-64 object-cover rounded-lg mb-4"
                                     />

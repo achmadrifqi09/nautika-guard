@@ -5,7 +5,7 @@ const Approval_Admin = ({ issueId = null }) => {
     const [issue, setIssue] = useState(null);
 
     const fetchIssue = async () => {
-        const response = await axios.get('http://localhost:3001/issue');
+        const response = await axios.get('http://202.10.42.158:3001/issue');
         if (response.status) {
             setIssue(response?.data?.result);
         } else {
@@ -45,7 +45,7 @@ const Approval_Admin = ({ issueId = null }) => {
                                 <div className="md:w-2/3">
                                     <h1 className="text-2xl font-semibold mb-4">{data.title}</h1>
                                     <img
-                                        src="images/event5.jpg"
+                                        src={`http://202.10.42.158:3001/file?image=${data.photo}`}
                                         alt="Sungai Brantas"
                                         className="w-full h-64 object-cover rounded-lg mb-4"
                                     />

@@ -1,40 +1,26 @@
-import React, { useEffect, useState } from "react";
-import Donasi from "./Donasi"; // Pastikan file Donasi.jsx tersedia
-import Fevent from "./Fevent"; // Pastikan file Fevent.jsx tersedia
-import Detail_Event from "./Detail_Event"; // Pastikan file Detail_Event.jsx tersedia
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import Donasi from './Donasi'; // Pastikan file Donasi.jsx tersedia
+import Fevent from './Fevent'; // Pastikan file Fevent.jsx tersedia
+import Detail_Event from './Detail_Event'; // Pastikan file Detail_Event.jsx tersedia
+import axios from 'axios';
 
 const Excerpt = ({ text, maxLength }) => {
     const createExcerpt = (str, max) => {
         if (str.length <= max) {
             return str;
         }
-        return str.slice(0, max) + "...";
+        return str.slice(0, max) + '...';
     };
 
-    return (
-        <p className="text-black-600 text-sm">
-            {createExcerpt(text, maxLength)}
-        </p>
-    );
+    return <p className="text-black-600 text-sm">{createExcerpt(text, maxLength)}</p>;
 };
 
 // Komponen EventCard
-const EventCard = ({
-    photo,
-    date,
-    title,
-    time,
-    description,
-    onGabungClick,
-    onDonasiClick,
-    onImageClick,
-    onBack,
-}) => (
+const EventCard = ({ photo, date, title, time, description, onGabungClick, onDonasiClick, onImageClick, onBack }) => (
     <div className="bg-white shadow-md rounded-lg p-4 w-79.5 flex-shrink-0 h-full flex flex-col justify-between">
         <div>
             <img
-                src={`http://localhost:3001/file?image=${photo}`}
+                src={`http://202.10.42.158:3001/file?image=${photo}`}
                 alt={title}
                 className="w-full h-40 object-cover rounded-lg mb-4 cursor-pointer"
                 onClick={onImageClick}
@@ -42,9 +28,7 @@ const EventCard = ({
             <p className="text-black-1000 text-sm mb-2">
                 Event Diselenggarakan: {date} {time}
             </p>
-            <h3 className="text-black-800 font-semibold text-lg mb-2">
-                {title}
-            </h3>
+            <h3 className="text-black-800 font-semibold text-lg mb-2">{title}</h3>
             <Excerpt text={description} maxLength={38} />
         </div>
         <div className="flex justify-between mt-4">
@@ -67,48 +51,43 @@ const EventCard = ({
 // Komponen utama Newevent
 const Newevent = () => {
     const [events, setEvents] = useState([]);
-    const [currentPage, setCurrentPage] = useState("events");
+    const [currentPage, setCurrentPage] = useState('events');
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     const handleGabungClick = () => {
-        setCurrentPage("fevent");
+        setCurrentPage('fevent');
     };
 
     const handleFetchEvent = async () => {
-        const response = await axios.get("http://localhost:3001/event");
+        const response = await axios.get('http://202.10.42.158:3001/event');
         if (response.status == 200) {
             setEvents(response.data);
         }
     };
 
     const handleDonasiClick = () => {
-        setCurrentPage("donasi");
+        setCurrentPage('donasi');
     };
 
     const handleImageClick = (event) => {
         setSelectedEvent(event);
-        setCurrentPage("detail");
+        setCurrentPage('detail');
     };
 
     useEffect(() => {
         handleFetchEvent();
     }, []);
 
-    if (currentPage === "donasi") {
+    if (currentPage === 'donasi') {
         return <Donasi />;
     }
 
-    if (currentPage === "fevent") {
+    if (currentPage === 'fevent') {
         return <Fevent />;
     }
 
-    if (currentPage === "detail") {
-        return (
-            <Detail_Event
-                event={selectedEvent}
-                onBack={() => setCurrentPage("events")}
-            />
-        );
+    if (currentPage === 'detail') {
+        return <Detail_Event event={selectedEvent} onBack={() => setCurrentPage('events')} />;
     }
 
     function checkEventType(arr, eventType) {
