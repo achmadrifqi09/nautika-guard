@@ -181,7 +181,7 @@ function Profile_User() {
                                 : 'text-gray-600'
                         }`}
                     >
-                        Ganti Password
+                        Ganti Sandi
                     </button>
                 </div>
 
@@ -194,7 +194,7 @@ function Profile_User() {
                             )}
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Full Name</span>
+                                    <span className="text-gray-600">Nama Panjang</span>
                                     <span className="font-semibold">{profile.fullName}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
@@ -207,7 +207,7 @@ function Profile_User() {
                     {activeTab === 'Edit Profil' && (
                         <form className="space-y-4" onSubmit={(e) => handleUpdateProfile(e)}>
                             <div>
-                                <label className="block text-gray-700">Full Name</label>
+                                <label className="block text-gray-700">Nama Panjang</label>
                                 <input
                                     type="text"
                                     name="fullName"
@@ -233,7 +233,7 @@ function Profile_User() {
                                     type="submit"
                                     // onClick={handleSave}
                                     disabled={loading}
-                                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 flex gap-2 items-center"
+                                    className="px-4 py-2 bg-[#00609B] text-white rounded-md hover:bg-[#00609B] disabled:bg-gray-300 flex gap-2 items-center"
                                 >
                                     {loading ? (
                                         <>
@@ -241,7 +241,7 @@ function Profile_User() {
                                             <p className="text-white">Saving ..</p>
                                         </>
                                     ) : (
-                                        <span>Save Changes</span>
+                                        <span>Simpan</span>
                                     )}
                                 </button>
                             </div>
@@ -251,7 +251,7 @@ function Profile_User() {
                     {activeTab === 'Ganti Password' && (
                         <form className="space-y-4" onSubmit={(e) => handleUpdatePassword(e)}>
                             <div>
-                                <label className="block text-gray-700">Old Password</label>
+                                <label className="block text-gray-700">Sandi Lama</label>
                                 <input
                                     type="password"
                                     name="current_password"
@@ -262,7 +262,7 @@ function Profile_User() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700">New Password</label>
+                                <label className="block text-gray-700">Kata Sandi Baru</label>
                                 <input
                                     type="password"
                                     name="new_password"
@@ -273,7 +273,7 @@ function Profile_User() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700">Confirm New Password</label>
+                                <label className="block text-gray-700">Konfirmasi Kata Sandi</label>
                                 <input
                                     type="password"
                                     name="confirm_password"
@@ -287,7 +287,7 @@ function Profile_User() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300"
+                                    className="px-4 py-2 bg-[#00609B] text-white rounded-md hover:bg-[#00609B] disabled:bg-gray-300"
                                 >
                                     {loading ? (
                                         <>
@@ -295,7 +295,7 @@ function Profile_User() {
                                             <p className="text-white">Saving ..</p>
                                         </>
                                     ) : (
-                                        <span>Change Password</span>
+                                        <span>Ganti Sandi</span>
                                     )}
                                 </button>
                             </div>

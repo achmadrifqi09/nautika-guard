@@ -12,7 +12,7 @@ const Section2 = () => {
             Event yang Tersedia
           </h2>
           <p className="text-gray-400">
-            Provide Descriptions, Get Instant AI Generated Content
+            
           </p>
         </div>
       </div>

@@ -97,7 +97,7 @@ const Newevent = () => {
     // Tampilkan halaman event jika currentPage adalah 'events'
     return (
         <div className="p-8 bg-gray-100 min-h-dvh">
-            <h2 className="text-2xl font-semibold mb-6">Event Pembersihan</h2>
+            <h2 className="text-2xl font-semibold mb-6">Kegiatan Pembersihan</h2>
             <div className="overflow-x-auto mb-10">
                 <div className="flex space-x-4">
                     {events?.map(
@@ -114,13 +114,13 @@ const Newevent = () => {
                     )}
                     {!checkEventType(events, 1) && (
                         <p className="px-6 py-8 bg-white w-full text-lg rounded-lg">
-                            Belum ada event pembersihan untuk saat ini
+                            Belum ada kegiatan pembersihan untuk saat ini
                         </p>
                     )}
                 </div>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-6">Event Edukasi</h2>
+            <h2 className="text-2xl font-semibold mb-6">Kegiatan Edukasi</h2>
             <div className="overflow-x-auto mb-10">
                 <div className="flex space-x-4">
                     {events?.map(
@@ -137,7 +137,7 @@ const Newevent = () => {
                     )}
                     {!checkEventType(events, 2) && (
                         <p className="px-6 py-8 bg-white w-full text-lg rounded-lg">
-                            Belum ada event edukasi untuk saat ini
+                            Belum ada kegiatan edukasi untuk saat ini
                         </p>
                     )}
                 </div>

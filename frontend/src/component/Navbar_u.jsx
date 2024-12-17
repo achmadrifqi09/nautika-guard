@@ -22,13 +22,13 @@ function Navbar_u() {
                 className="p-2 rounded-full bg-gray-200 outline-none"
             />
             <div className="flex items-center space-x-4">
-                <span className="text-gray-500">19 May 2022</span>
+                <span className="text-gray-500"></span>
                 <button className="text-gray-500">
                     <i className="fas fa-bell"></i>
                 </button>
                 {!isLoggedIn && (
                     <button onClick={handleLoginClick} className="px-4 py-2 bg-[#00609B] text-white rounded">
-                        Login
+                        Masuk
                     </button>
                 )}
             </div>

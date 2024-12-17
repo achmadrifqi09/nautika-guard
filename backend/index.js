@@ -31,7 +31,7 @@ const initDatabase = async () => {
         db = await mysql.createConnection({
             host: process.env.DB_HOST || 'localhost',
             user: process.env.DB_USER || 'root',
-            password: process.env.DB_PASSWORD || 'Nautika2024',
+            password: process.env.DB_PASSWORD || '*Nautika2024',
             database: process.env.DB_NAME || 'NAUTIKA',
         });
         console.log('Koneksi database berhasil');

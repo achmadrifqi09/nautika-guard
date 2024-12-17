@@ -169,13 +169,7 @@ import React, { useState } from "react";
                     <div className="flex justify-end space-x-4 mt-6">
                     <button
                         type="button"
-                        className="px-4 py-2 text-gray-600 bg-gray-200 rounded-md"
-                    >
-                        Batal
-                    </button>
-                    <button
-                        type="button"
-                        className="px-4 py-2 text-white bg-blue-600 rounded-md"
+                        className="px-4 py-2 text-white bg-[#00609B] rounded-md"
                     >
                         Simpan
                     </button>
@@ -213,13 +207,7 @@ import React, { useState } from "react";
                     <div className="flex justify-end space-x-4 mt-6">
                     <button
                         type="button"
-                        className="px-4 py-2 text-gray-600 bg-gray-200 rounded-md"
-                    >
-                        Batal
-                    </button>
-                    <button
-                        type="button"
-                        className="px-4 py-2 text-white bg-blue-600 rounded-md"
+                        className="px-4 py-2 text-white bg-[#00609B] rounded-md"
                     >
                         Simpan
                     </button>

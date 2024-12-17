@@ -118,7 +118,7 @@ function Report_isu() {
                     htmlFor="fileInput"
                     className="cursor-pointer px-4 py-2 bg-[#00609B] text-white rounded hover:bg-blue-700"
                 >
-                    Upload Bukti
+                    Unggah Bukti
                 </label>
 
                 {/* Display file name or preview */}

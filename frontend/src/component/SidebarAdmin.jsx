@@ -80,7 +80,7 @@ const Sidebar = () => {
                         }`}
                     >
                         <img src="/images/home-svgrepo-com.svg" alt="Home" className="w-9 h-9" />
-                        {isOpen && <span className="ml-3 text-gray-700 font-semibold">Home</span>}
+                        {isOpen && <span className="ml-3 text-gray-700 font-semibold">Beranda</span>}
                     </button>
                     <button
                         onClick={() => navigateTo('Event')}
@@ -89,7 +89,7 @@ const Sidebar = () => {
                         }`}
                     >
                         <img src="/images/kalender.svg" alt="Event" className="w-6 h-6" />
-                        {isOpen && <span className="ml-4 text-gray-700 font-semibold">Event</span>}
+                        {isOpen && <span className="ml-4 text-gray-700 font-semibold">Kegiatan</span>}
                     </button>
                     <button
                         onClick={() => navigateTo('Notifikasi')}
@@ -116,7 +116,7 @@ const Sidebar = () => {
                         }`}
                     >
                         <img src="/images/pengaturan.svg" alt="Setting" className="w-6 h-6" />
-                        {isOpen && <span className="ml-4 text-gray-700 font-semibold">Setting</span>}
+                        {isOpen && <span className="ml-4 text-gray-700 font-semibold">Pengaturan</span>}
                     </button>
                 </nav>
 
